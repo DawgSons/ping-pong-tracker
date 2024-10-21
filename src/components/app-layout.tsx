@@ -15,16 +15,9 @@ export function AppLayoutComponent() {
     <div className="min-h-screen bg-background text-foreground flex flex-col">
       <Tabs defaultValue="platten" className="w-full h-full flex flex-col">
         <main className="flex-1 overflow-hidden">
-          <TabsContent value="platten" className="h-full w-full">
-            <div className="flex-1 w-full relative">
-              <MapViewComponent /> { /* fix map dimensions */}
-            </div>
-            <Button
-                className="fixed right-4 bottom-20 w-14 h-14 bg-blue-500 rounded-full shadow-lg flex items-center justify-center text-white"
-                onClick={toggleOverlay}
-              >
-                <Plus size={24} />
-              </Button>
+          <TabsContent value="platten" style={{height: "100vh"}} className="w-full">
+              <MapViewComponent />
+
           </TabsContent>
           <TabsContent value="info" className="p-4 h-full overflow-y-auto">
             <h2 className="text-2xl font-bold mb-4">Info Content</h2>
