@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label"
 import { Plus, X, Disc, Info } from "lucide-react"
 import MapViewComponent from "./MapView"
 import { TableService } from "@/services/tableService"
+import NewEntryModal from "./NewEntryModal"
 
 export function AppLayoutComponent() {
   const [isOverlayOpen, setIsOverlayOpen] = useState(false)
@@ -42,33 +43,7 @@ export function AppLayoutComponent() {
         </TabsList>
       </Tabs>
 
-      {isOverlayOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-background rounded-lg shadow-xl w-full max-w-md">
-            <div className="flex justify-between items-center p-4 border-b">
-              <h3 className="text-lg font-semibold">Add New Data</h3>
-              <Button className="z-50" variant="outline" size="icon" onClick={toggleOverlay}>
-                <X className="w-5 h-5" />
-              </Button>
-            </div>
-            <form className="p-4 space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="name">Name</Label>
-                <Input id="name" placeholder="Enter name" />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="description">Description</Label>
-                <Input id="description" placeholder="Enter description" />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="photo">Photo</Label>
-                <Input id="photo" type="file" placeholder="Upload photo"/>
-              </div>
-              <Button onClick={TableService.addTable(FormData)} className="w-full">Submit</Button>
-            </form>
-          </div>
-        </div>
-      )}
+      {isOverlayOpen && <NewEntryModal />}
     </div>
   )
 }

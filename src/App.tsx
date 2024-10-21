@@ -1,16 +1,13 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import AppLayout from './components/AppLayout'
-import { AppLayoutComponent } from './components/app-layout'
+import { useState } from 'react';
+import './App.css';
+import { AppLayoutComponent } from './components/app-layout';
 
 function App() {
-  const [count, setCount] = useState(0)
+  navigator.geolocation.getCurrentPosition((position) => {}, (error) => {}, { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 });
 
   return (
     <AppLayoutComponent />
   )
 }
 
-export default App
+export default App;

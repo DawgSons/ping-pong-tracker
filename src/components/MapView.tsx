@@ -1,7 +1,5 @@
 import { useState } from "react";
 import { MapContainer, TileLayer } from "react-leaflet";
-import "leaflet-fullscreen/dist/Leaflet.fullscreen.js";
-import "leaflet-fullscreen/dist/Leaflet.fullscreen.css";
 import "leaflet/dist/leaflet.css";
 import { LatLngTuple } from "leaflet";
 
