@@ -33,19 +33,26 @@ export const WebCam = () => {
 
   const onUpload = async () => {
     const formData = new FormData();
-    formData.append("plate_image", base64ToBlob(buffer), "generic.png");
+    formData.append("plate_image", base64ToFile(buffer, "generic.png"));
 
-    await TableService.
+    await TableService.addTable({
+      description: "New Table from Webcam",
+      condition: "good", // Placeholder, might need adjustment
+      is_public: true,
+      longitude: 0, // Placeholder - should be set dynamically
+      latitude: 0  // Placeholder - should be set dynamically
+    }, base64ToFile(buffer, "generic.png"));
+
   };
 
-  const base64ToBlob = (base64: string) => {
-    const byteChars = window.atob(base64);
+  const base64ToFile = (base64: string, fileName: string): File => {
+    const byteChars = window.atob(base64.split(",")[1]);
     const byteNumbers = new Array(byteChars.length);
-    for ( let i = 0; i < byteChars.length; i++) {
+    for (let i = 0; i < byteChars.length; i++) {
       byteNumbers[i] = byteChars.charCodeAt(i);
     }
     const byteArray = new Uint8Array(byteNumbers);
-    return new Blob([byteArray], {type: "image/png"});
+    return new File([byteArray], fileName, { type: "image/png" });
   };
 
   return (
