@@ -1,3 +1,5 @@
+import { Json } from "./supabase";
+
 export interface TableLocation {
   latitude: number;
   longitude: number;
@@ -24,7 +26,8 @@ export interface TableInput {
   description: string | null;
   condition: TableCondition;
   is_public: boolean;
-  metadata?: Record<string, unknown> | null;
+  // metadata?: Record<string, unknown> | null;
+  metadata?: Json | undefined
 }
 
 export interface NearbyTable extends Omit<Table, 'location'> {

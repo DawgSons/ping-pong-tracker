@@ -7,11 +7,16 @@ import { Plus, X, Disc, Info } from "lucide-react"
 import MapViewComponent from "./MapView"
 import { TableService } from "@/services/tableService"
 import NewEntryModal from "./NewEntryModal"
+import { ToggleContext } from "@/lib/ToggleContext"
 
 export function AppLayoutComponent() {
   const [isOverlayOpen, setIsOverlayOpen] = useState(false)
 
   const toggleOverlay = () => setIsOverlayOpen(!isOverlayOpen)
+  const context = {
+    isOverlayOpen,
+    toggleOverlay,
+  };
 
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col">
@@ -42,8 +47,9 @@ export function AppLayoutComponent() {
           </TabsTrigger>
         </TabsList>
       </Tabs>
-
-      {isOverlayOpen && <NewEntryModal />}
+      <ToggleContext.Provider value={context}>
+        {isOverlayOpen && <NewEntryModal />}
+      </ToggleContext.Provider>
     </div>
   )
 }

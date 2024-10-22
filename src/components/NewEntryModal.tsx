@@ -3,8 +3,12 @@ import { Label } from "@radix-ui/react-label";
 import { X } from "lucide-react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
+import { ToggleContext } from "@/lib/ToggleContext";
+import { useContext } from "react";
+
 
 export default function NewEntryModal() {
+  const context = useContext(ToggleContext);
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
       <div className="bg-background rounded-lg shadow-xl w-full max-w-md">
@@ -14,7 +18,7 @@ export default function NewEntryModal() {
             className="z-50"
             variant="outline"
             size="icon"
-            onClick={toggleOverlay}
+            onClick={context.toggleOverlay}
           >
             <X className="w-5 h-5" />
           </Button>

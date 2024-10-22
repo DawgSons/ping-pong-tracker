@@ -66,13 +66,13 @@ export class TableService {
         .select()
         .single();
 
-      if (error) throw this.handleError(error);
+      if (error) throw this.handleError(error) as TableServiceError;
       if (!data) throw new TableServiceError("No data returned from insert");
 
       return data as Table;
     } catch (error) {
       console.error("Error adding table:", error);
-      throw this.handleError(error);
+      throw this.handleError(error)as TableServiceError;
     }
   }
 
@@ -88,13 +88,13 @@ export class TableService {
         radius_meters: radiusInMeters,
       });
 
-      if (error) throw this.handleError(error);
+      if (error) throw this.handleError(error) as PostgrestError;
       if (!data) return [];
 
       return data as NearbyTable[];
     } catch (error) {
       console.error("Error getting nearby tables:", error);
-      throw this.handleError(error);
+      throw this.handleError(error) as TableServiceError;
     }
   }
 
@@ -105,13 +105,13 @@ export class TableService {
         .select("*")
         .order("created_at", { ascending: false });
 
-      if (error) throw this.handleError(error);
+      if (error) throw this.handleError(error) as PostgrestError;
       if (!data) return [];
 
       return data as Table[];
     } catch (error) {
       console.error("Error getting tables:", error);
-      throw this.handleError(error);
+      throw this.handleError(error) as TableServiceError;
     }
   }
 
@@ -119,10 +119,10 @@ export class TableService {
     try {
       const { error } = await supabase.from("tables").delete().eq("id", id);
 
-      if (error) throw this.handleError(error);
+      if (error) throw this.handleError(error) as PostgrestError;
     } catch (error) {
       console.error("Error deleting table:", error);
-      throw this.handleError(error);
+      throw this.handleError(error) as TableServiceError;
     }
   }
 
@@ -138,13 +138,13 @@ export class TableService {
         .select()
         .single();
 
-      if (error) throw this.handleError(error);
+      if (error) throw this.handleError(error) as PostgrestError;
       if (!data) throw new Error("No data returned from update");
 
       return data as Table;
     } catch (error) {
       console.error("Error updating table:", error);
-      throw this.handleError(error);
+      throw this.handleError(error) as TableServiceError;
     }
   }
 }
