@@ -9,7 +9,7 @@ export default function MapViewComponent() {
   const [zoom, setZoom] = useState(13);
 
   return (
-    <div className="map-container" style={{display: "flex", height: "100%", position: "relative"}}>
+    <div className="map-container" style={{display: "flex", height: "100%", position: "relative", bottom: "2.5rem"}}>
       <MapContainer
         center={center}
         zoom={zoom}
