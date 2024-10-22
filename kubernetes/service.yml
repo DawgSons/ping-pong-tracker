@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: pingpong-app-service
+  namespace: pingpong-dev
+  labels:
+    app: pingpong-tracker
+spec:
+  selector:
+    app: pingpong-tracker
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 4173
+  type: ClusterIP

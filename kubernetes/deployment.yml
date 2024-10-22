@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pingpong-app
+  namespace: pingpong-dev
+  labels:
+    app: pingpong-tracker
+    environment: development
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: pingpong-tracker
+  template:
+    metadata:
+      labels:
+        app: pingpong-tracker
+    spec:
+      containers:
+      - name: pingpong-app
+        image: pipelinedave/ping-pong-tracker-preview:latest
+        ports:
+        - containerPort: 4173
+        env:
+        - name: NODE_ENV
+          value: "development"
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "250m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
