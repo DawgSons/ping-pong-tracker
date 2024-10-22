@@ -1,0 +1,29 @@
+﻿version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "4173:4173"
+    environment:
+      NODE_ENV: development
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: ["yarn", "dev"]
+
+  supabase:
+    image: supabase/postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: examplepassword
+      POSTGRES_USER: supabase_user
+      POSTGRES_DB: supabase_db
+    volumes:
+      - supabase_data:/var/lib/postgresql/data
+
+volumes:
+  supabase_data:
