@@ -26,4 +26,4 @@ EXPOSE 4173
 ENV NODE_ENV=production
 
 # Run the application in preview mode
-CMD ["yarn", "preview"]
+CMD ["yarn", "preview", "--host", "0.0.0.0"]
