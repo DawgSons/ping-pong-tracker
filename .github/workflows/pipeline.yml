@@ -66,15 +66,15 @@ jobs:
       - name: 🔄 Update Kubernetes Manifests with New Image
         run: |
           if [ "${{ github.ref }}" == "refs/heads/main" ]; then
-            sed -i 's|image: pipelinedave/ping-pong-tracker:.*|image: pipelinedave/ping-pong-tracker:dev-latest|' kubernetes/dev/deployment.yaml
+            sed -i 's|image: pipelinedave/ping-pong-tracker:.*|image: pipelinedave/ping-pong-tracker:dev-latest|' kubernetes/dev/deployment.yml
           else
-            sed -i 's|image: pipelinedave/ping-pong-tracker:.*|image: pipelinedave/ping-pong-tracker:prod-latest|' kubernetes/prod/deployment.yaml
+            sed -i 's|image: pipelinedave/ping-pong-tracker:.*|image: pipelinedave/ping-pong-tracker:prod-latest|' kubernetes/prod/deployment.yml
           fi
 
       - name: 📬 Commit and Push Manifest Changes
         run: |
           git config --global user.email "ci-bot@pingpong.com"
           git config --global user.name "CI Bot"
-          git add kubernetes/dev/deployment.yaml
+          git add kubernetes/dev/deployment.yml
           git commit -m "Update dev deployment to use image: dev-latest"
           git push origin ${{ github.ref }}
