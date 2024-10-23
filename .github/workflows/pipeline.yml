@@ -69,6 +69,7 @@ jobs:
             sed -i 's|image: pipelinedave/ping-pong-tracker:.*|image: pipelinedave/ping-pong-tracker:dev-latest|' kubernetes/dev/deployment.yaml
           else
             sed -i 's|image: pipelinedave/ping-pong-tracker:.*|image: pipelinedave/ping-pong-tracker:prod-latest|' kubernetes/prod/deployment.yaml
+          fi
 
       - name: 📬 Commit and Push Manifest Changes
         run: |
