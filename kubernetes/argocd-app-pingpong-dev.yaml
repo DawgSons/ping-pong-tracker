@@ -6,8 +6,8 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: 'https://github.com/GOSCHEN/ping-pong-tracker.git' 
-    targetRevision: HEAD 
+    repoURL: 'https://github.com/DawgSons/ping-pong-tracker.git'
+    targetRevision: HEAD
     path: kubernetes/dev
   destination:
     server: 'https://kubernetes.default.svc'
@@ -18,4 +18,3 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
-
