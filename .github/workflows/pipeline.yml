@@ -27,7 +27,7 @@ jobs:
 
       - name: 🏗️ Build Application
         run: |
-          if [ "${{ github.event_name }}" == "push" ] && [ "${{ github.ref }}" == "refs/heads/main" ]; then
+          if [ "${{ github.ref }}" == "refs/heads/main" ]; then
             yarn build:dev
           else
             yarn build:prod
@@ -42,16 +42,20 @@ jobs:
       - name: 🐳 Build Docker Image
         run: |
           if [ "${{ github.ref }}" == "refs/heads/main" ]; then
-            docker build -t pipelinedave/ping-pong-tracker:dev-latest .
+            docker build -t pipelinedave/ping-pong-tracker:dev-${{ github.sha }} .
+            docker tag pipelinedave/ping-pong-tracker:dev-${{ github.sha }} pipelinedave/ping-pong-tracker:dev-latest
           else
-            docker build -t pipelinedave/ping-pong-tracker:prod-latest .
+            docker build -t pipelinedave/ping-pong-tracker:prod-${{ github.sha }} .
+            docker tag pipelinedave/ping-pong-tracker:prod-${{ github.sha }} pipelinedave/ping-pong-tracker:prod-latest
           fi
 
       - name: 📤 Push Docker Image
         run: |
           if [ "${{ github.ref }}" == "refs/heads/main" ]; then
+            docker push pipelinedave/ping-pong-tracker:dev-${{ github.sha }}
             docker push pipelinedave/ping-pong-tracker:dev-latest
           else
+            docker push pipelinedave/ping-pong-tracker:prod-${{ github.sha }}
             docker push pipelinedave/ping-pong-tracker:prod-latest
           fi
 
@@ -66,15 +70,29 @@ jobs:
       - name: 🔄 Update Kubernetes Manifests with New Image
         run: |
           if [ "${{ github.ref }}" == "refs/heads/main" ]; then
-            sed -i 's|image: pipelinedave/ping-pong-tracker:.*|image: pipelinedave/ping-pong-tracker:dev-latest|' kubernetes/dev/deployment.yml
+            sed -i 's|image: pipelinedave/ping-pong-tracker:.*|image: pipelinedave/ping-pong-tracker:dev-${{ github.sha }}|' kubernetes/dev/deployment.yml
           else
-            sed -i 's|image: pipelinedave/ping-pong-tracker:.*|image: pipelinedave/ping-pong-tracker:prod-latest|' kubernetes/prod/deployment.yml
+            sed -i 's|image: pipelinedave/ping-pong-tracker:.*|image: pipelinedave/ping-pong-tracker:prod-${{ github.sha }}|' kubernetes/prod/deployment.yml
           fi
 
       - name: 📬 Commit and Push Manifest Changes
         run: |
           git config --global user.email "ci-bot@pingpong.com"
           git config --global user.name "CI Bot"
-          git add kubernetes/dev/deployment.yml
-          git commit -m "Update dev deployment to use image: dev-latest"
-          git push origin ${{ github.ref }}
+          if [ "${{ github.ref }}" == "refs/heads/main" ]; then
+            git add kubernetes/dev/deployment.yml
+            if ! git diff --cached --quiet; then
+              git commit -m "Update dev deployment to use image: dev-${{ github.sha }}"
+              git push origin ${{ github.ref }}
+            else
+              echo "No changes to commit"
+            fi
+          else
+            git add kubernetes/prod/deployment.yml
+            if ! git diff --cached --quiet; then
+              git commit -m "Update prod deployment to use image: prod-${{ github.sha }}"
+              git push origin ${{ github.ref }}
+            else
+              echo "No changes to commit"
+            fi
+          fi
