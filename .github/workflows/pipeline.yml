@@ -1,6 +1,7 @@
 name: 🛠️ CI/CD Pipeline for Ping Pong Tracker 🏓
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main  # Dev environment
