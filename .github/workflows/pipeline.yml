@@ -1,5 +1,8 @@
 name: 🛠️ CI/CD Pipeline for Ping Pong Tracker 🏓
 
+permissions:
+  contents: write
+
 on:
   workflow_dispatch:
   push:
