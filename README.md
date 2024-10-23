@@ -1,5 +1,7 @@
 # React + TypeScript + Vite
 
+[![🛠️ CI/CD Pipeline for Ping Pong Tracker 🏓](https://github.com/DawgSons/ping-pong-tracker/actions/workflows/pipeline.yml/badge.svg?branch=main&event=workflow_run)](https://github.com/DawgSons/ping-pong-tracker/actions/workflows/pipeline.yml)
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
