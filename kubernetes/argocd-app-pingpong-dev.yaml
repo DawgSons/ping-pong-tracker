@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: 'https://github.com/DawgSons/ping-pong-tracker.git'
+    repoURL: 'git@github.com:DawgSons/ping-pong-tracker.git'
     targetRevision: HEAD
     path: kubernetes/dev
   destination:
