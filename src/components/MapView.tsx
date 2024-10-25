@@ -5,11 +5,12 @@ import { LatLngTuple } from "leaflet";
 
 
 export default function MapViewComponent() {
-  const [center, setCenter] = useState<LatLngTuple>([50.992707, 7.12652]);
+  const currentPosition: GeolocationCoordinates = JSON.parse(localStorage.getItem('position'));
+  const [center, setCenter] = useState<LatLngTuple>([currentPosition.latitude, currentPosition.longitude]);
   const [zoom, setZoom] = useState(13);
 
   return (
-    <div className="map-container" style={{display: "flex", height: "100%", position: "relative", bottom: "2.5rem"}}>
+    <div className="map-container" style={{display: "flex", height: "100%", position: "relative", bottom: "2.5rem", top: 0}}>
       <MapContainer
         center={center}
         zoom={zoom}
@@ -20,6 +21,7 @@ export default function MapViewComponent() {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
+        <MapMarkers />
       </MapContainer>
     </div>
   );

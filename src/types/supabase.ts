@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-duplicate-type-constituents */
+/* eslint-disable @typescript-eslint/no-redundant-type-constituents */
 export type Json =
   | string
   | number
@@ -40,9 +42,9 @@ export type Database = {
           created_at: string
           description: string | null
           id: string
-          image_url: string
+          image_url: string | null
           is_public: boolean | null
-          last_verified: string
+          last_verified: string | null
           location: unknown
           metadata: Json | null
         }
@@ -52,9 +54,9 @@ export type Database = {
           created_at?: string
           description?: string | null
           id?: string
-          image_url: string
+          image_url?: string | null
           is_public?: boolean | null
-          last_verified?: string
+          last_verified?: string | null
           location: unknown
           metadata?: Json | null
         }
@@ -64,9 +66,9 @@ export type Database = {
           created_at?: string
           description?: string | null
           id?: string
-          image_url?: string
+          image_url?: string | null
           is_public?: boolean | null
-          last_verified?: string
+          last_verified?: string | null
           location?: unknown
           metadata?: Json | null
         }
