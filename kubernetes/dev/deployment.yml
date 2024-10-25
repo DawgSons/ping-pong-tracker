@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: pingpong-app
-        image: pipelinedave/ping-pong-tracker:dev-edcb7d7cf675b06efc6b109974f973a0b68cfc2f
+        image: pipelinedave/ping-pong-tracker:dev-aac6975405c9ef6ffc7d3d36ffa43d956f33eddf
         ports:
         - containerPort: 4173
         env:
