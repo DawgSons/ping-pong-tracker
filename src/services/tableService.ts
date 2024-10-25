@@ -4,6 +4,7 @@ import {
   TableInput,
   NearbyTable,
   TableServiceError,
+  TableLatLng,
 } from "../types/database.types";
 import { PostgrestError } from "@supabase/supabase-js";
 
@@ -18,7 +19,11 @@ export class TableService {
   private static handleError(error: unknown): never {
     const postgrestError = error as PostgrestError;
     if (postgrestError && postgrestError.message) {
-      throw new TableServiceError(postgrestError.message, postgrestError.code, postgrestError.details);
+      throw new TableServiceError(
+        postgrestError.message,
+        postgrestError.code,
+        postgrestError.details,
+      );
     }
     if (error instanceof Error) {
       throw new TableServiceError(error.message);
@@ -72,7 +77,7 @@ export class TableService {
       return data as Table;
     } catch (error) {
       console.error("Error adding table:", error);
-      throw this.handleError(error)as TableServiceError;
+      throw this.handleError(error) as TableServiceError;
     }
   }
 
@@ -94,6 +99,17 @@ export class TableService {
       return data as NearbyTable[];
     } catch (error) {
       console.error("Error getting nearby tables:", error);
+      throw this.handleError(error) as TableServiceError;
+    }
+  }
+
+  static async getTablesLatLng(): Promise<TableLatLng[]> {
+    try {
+      const { data, error } = await supabase.rpc("tables_latlng");
+      if (error) throw this.handleError(error) as PostgrestError;
+      return data as TableLatLng[];
+    } catch (error) {
+      console.error("Error getting tables latlng:", error);
       throw this.handleError(error) as TableServiceError;
     }
   }

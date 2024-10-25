@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-duplicate-type-constituents */
 /* eslint-disable @typescript-eslint/no-redundant-type-constituents */
+/* eslint-disable @typescript-eslint/no-duplicate-type-constituents */
 export type Json =
   | string
   | number
@@ -3138,6 +3138,17 @@ export type Database = {
           "": unknown
         }
         Returns: number
+      }
+      tables_latlng: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          id: string
+          lat: number
+          lng: number
+          image_url: string
+          description: string
+          condition: string
+        }[]
       }
       text: {
         Args: {

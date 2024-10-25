@@ -1,18 +1,20 @@
-import { TableService } from "@/services/tableService";
-import { useEffect } from "react"
+import { TableLatLng } from "@/types/database.types";
+// import { useEffect } from "react"
+import { Marker, Popup } from "react-leaflet";
 
-export default function MapMarkers() {
-  const currentPosition: GeolocationCoordinates = JSON.parse(localStorage.getItem('position'));
-  useEffect(() => {
-    TableService.getNearbyTables(currentPosition.latitude, currentPosition.longitude, 5000)
-    .then((data) => {
-      console.log(data);
-    });
-  }, []);
+const MapMarkers = ({data} : {data: TableLatLng[]}) => {
 
   return (
-    <div>
-      <h1>MapMarkers</h1>
-    </div>
-  )
+    <>
+      {data.map(({ lat, lng, condition }, index) => (
+          <Marker key={index} position={[lat, lng]}>
+            <Popup>
+              {condition}
+            </Popup>
+          </Marker>
+        ))}
+    </>
+  );
 }
+
+export default MapMarkers;

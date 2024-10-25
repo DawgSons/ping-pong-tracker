@@ -5,7 +5,7 @@ export interface TableLocation {
   longitude: number;
 }
 
-export type TableCondition = 'new' | 'good' | 'fair' | 'poor';
+export type TableCondition = 'new' | 'good' | 'fair' | 'poor' | 'unknown';
 
 export interface Table {
   id: string;
@@ -33,6 +33,15 @@ export interface TableInput {
 export interface NearbyTable extends Omit<Table, 'location'> {
   location: string; // PostGIS geography type
   distance_meters: number;
+}
+
+export interface TableLatLng extends Omit<Table, 'location'> {
+  id: string;
+  lat: number;
+  lng: number;
+  image_url: string;
+  description: string;
+  condition: TableCondition;
 }
 
 // Custom error types
